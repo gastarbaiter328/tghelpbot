@@ -6,43 +6,6 @@ andrey#osiris, [30.11.2025 4:40]
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Юридическая консультация</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script>// Обработчик отправки формы
-document.getElementById('legalForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    // Собираем данные формы
-    const formData = {
-        fullName: document.getElementById('fullName').value,
-        phone: document.getElementById('phone').value,
-        problemDescription: document.getElementById('problemDescription').value,
-        urgency: document.getElementById('urgency').value,
-        timestamp: new Date().toLocaleString('ru-RU'),
-        user: tg.initDataUnsafe.user || {}
-    };
-    
-    console.log("📤 Отправляю данные в Telegram:", formData);
-    
-    // ✅ ОТПРАВКА В TELEGRAM
-    if (tg && tg.sendData) {
-        tg.sendData(JSON.stringify(formData));
-        console.log("✅ Данные отправлены в Telegram!");
-    } else {
-        console.log("❌ Telegram Web App не доступен");
-    }
-    
-    // Показываем уведомление
-    tg.showPopup({
-        title: '✅ Успешно!',
-        message: 'Ваша заявка отправлена. Юрист свяжется с вами.',
-        buttons: [{ type: 'ok' }]
-    });
-    
-    // Закрываем Mini App через 2 секунды
-    setTimeout(() => {
-        tg.close();
-    }, 2000);
-});
-    </script> 
     <style>
         * {
             margin: 0;
@@ -492,6 +455,42 @@ andrey#osiris, [30.11.2025 4:40]
     </div>
 
     <script>
+        // Обработчик отправки формы
+document.getElementById('legalForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Собираем данные формы
+    const formData = {
+        fullName: document.getElementById('fullName').value,
+        phone: document.getElementById('phone').value,
+        problemDescription: document.getElementById('problemDescription').value,
+        urgency: document.getElementById('urgency').value,
+        timestamp: new Date().toLocaleString('ru-RU'),
+        user: tg.initDataUnsafe.user || {}
+    };
+    
+    console.log("📤 Отправляю данные в Telegram:", formData);
+    
+    // ✅ ОТПРАВКА В TELEGRAM
+    if (tg && tg.sendData) {
+        tg.sendData(JSON.stringify(formData));
+        console.log("✅ Данные отправлены в Telegram!");
+    } else {
+        console.log("❌ Telegram Web App не доступен");
+    }
+    
+    // Показываем уведомление
+    tg.showPopup({
+        title: '✅ Успешно!',
+        message: 'Ваша заявка отправлена. Юрист свяжется с вами.',
+        buttons: [{ type: 'ok' }]
+    });
+    
+    // Закрываем Mini App через 2 секунды
+    setTimeout(() => {
+        tg.close();
+    }, 2000);
+});
         const tg = window.Telegram.WebApp;
         tg.expand();
         tg.ready();
