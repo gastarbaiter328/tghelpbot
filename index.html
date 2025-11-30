@@ -1,4 +1,3 @@
-andrey#osiris, [30.11.2025 4:40]
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -129,7 +128,7 @@ andrey#osiris, [30.11.2025 4:40]
         .features-grid {
             display: grid;
 
-andrey#osiris, [30.11.2025 4:40]
+andrey#osiris, [30.11.2025 5:45]
 grid-template-columns: repeat(3, 1fr);
             gap: 15px;
             margin-bottom: 30px;
@@ -276,7 +275,7 @@ grid-template-columns: repeat(3, 1fr);
         
         .
 
-andrey#osiris, [30.11.2025 4:40]
+andrey#osiris, [30.11.2025 5:45]
 floating-elements {
             position: absolute;
             top: 0;
@@ -407,13 +406,13 @@ floating-elements {
                 <input type="text" id="fullName" required placeholder="Иванов Иван Иванович">
             </div>
 
-andrey#osiris, [30.11.2025 4:40]
+andrey#osiris, [30.11.2025 5:45]
 <div class="form-group">
                 <label for="phone">
                     <span class="label-icon">📞</span>
-                    Контактный юзернейм *
+                    Контактный телефон *
                 </label>
-                <input type="tel" id="phone" required placeholder="@example">
+                <input type="tel" id="phone" required placeholder="+7 (999) 123-45-67">
             </div>
             
             <div class="form-group">
@@ -455,43 +454,8 @@ andrey#osiris, [30.11.2025 4:40]
     </div>
 
     <script>
-        // Обработчик отправки формы
-document.getElementById('legalForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    // Собираем данные формы
-    const formData = {
-        fullName: document.getElementById('fullName').value,
-        phone: document.getElementById('phone').value,
-        problemDescription: document.getElementById('problemDescription').value,
-        urgency: document.getElementById('urgency').value,
-        timestamp: new Date().toLocaleString('ru-RU'),
-        user: tg.initDataUnsafe.user || {}
-    };
-    
-    console.log("📤 Отправляю данные в Telegram:", formData);
-    
-    // ✅ ОТПРАВКА В TELEGRAM
-    if (tg && tg.sendData) {
-        tg.sendData(JSON.stringify(formData));
-        console.log("✅ Данные отправлены в Telegram!");
-    } else {
-        console.log("❌ Telegram Web App не доступен");
-    }
-    
-    // Показываем уведомление
-    tg.showPopup({
-        title: '✅ Успешно!',
-        message: 'Ваша заявка отправлена. Юрист свяжется с вами.',
-        buttons: [{ type: 'ok' }]
-    });
-    
-    // Закрываем Mini App через 2 секунды
-    setTimeout(() => {
-        tg.close();
-    }, 2000);
-});
         const tg = window.Telegram.WebApp;
+        console.log("🔧 Telegram Web App инициализирован");
         tg.expand();
         tg.ready();
         
@@ -513,9 +477,10 @@ document.getElementById('legalForm').addEventListener('submit', function(e) {
             });
         });
         
-        // Отправка формы
+        // ✅ ОБРАБОТЧИК ОТПРАВКИ ФОРМЫ - ПЕРЕСЫЛКА В TELEGRAM
         document.getElementById('legalForm').addEventListener('submit', function(e) {
             e.preventDefault();
+            console.log("🔄 Форма отправлена!");
             
             const formData = {
                 fullName: document.getElementById('fullName').value,
@@ -526,15 +491,26 @@ document.getElementById('legalForm').addEventListener('submit', function(e) {
                 user: tg.initDataUnsafe.user || {}
             };
             
+            console.log("📦 Данные для отправки:", formData);
+            
+            // ОТПРАВКА ДАННЫХ В TELEGRAM BOT
+            if (tg && tg.sendData) {
+                tg.sendData(JSON.stringify(formData));
+                console.log("✅ Данные отправлены в Telegram!");
+            } else {
+                console.log("❌ Ошибка: Telegram Web App не доступен");
+            }
+            
             // Показываем анимацию успеха
             document.getElementById('legalForm').style.display = 'none';
-            document.getElementById('successMessage').style.display = 'block';
-            
-            // Отправляем данные в бота
-            tg.sendData(JSON.stringify(formData));
+            document.
+
+andrey#osiris, [30.11.2025 5:45]
+getElementById('successMessage').style.display = 'block';
             
             // Закрываем приложение через 3 секунды
             setTimeout(() => {
+                console.log("🔒 Закрываю Mini App");
                 tg.close();
             }, 3000);
         });
@@ -542,10 +518,7 @@ document.getElementById('legalForm').addEventListener('submit', function(e) {
         // Плавное появление элементов
         document.addEventListener('DOMContentLoaded', function() {
             const elements = document.querySelectorAll('.form-group, .features-grid, .header');
-            elements.
-
-andrey#osiris, [30.11.2025 4:40]
-forEach((el, index) => {
+            elements.forEach((el, index) => {
                 setTimeout(() => {
                     el.style.opacity = '1';
                     el.style.transform = 'translateY(0)';
@@ -559,6 +532,8 @@ forEach((el, index) => {
             el.style.transform = 'translateY(20px)';
             el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         });
+        
+        console.log("🚀 HTML форма готова к работе!");
     </script>
 </body>
 </html>
